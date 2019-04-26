@@ -44,7 +44,7 @@ podTemplate(
         sh "${mvnCmd} clean package -DskipTests=true"
       }
       
-      parllel firstBranch: {
+      parallel firstBranch: {
         // Using Maven run the unit tests
         stage('Unit Tests') {
           echo "Running Unit Tests"
