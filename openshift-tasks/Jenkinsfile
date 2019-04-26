@@ -44,7 +44,7 @@ podTemplate(
         sh "${mvnCmd} clean package -DskipTests=true"
       }
       
-      stages {
+      parllel firstBranch: {
         // Using Maven run the unit tests
         stage('Unit Tests') {
           echo "Running Unit Tests"
@@ -55,7 +55,7 @@ podTemplate(
           // It displays the results of tests in the Jenkins Task Overview
           step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
         }
-
+      }, secondBranch: {
         // Using Maven to call SonarQube for Code Analysis
         stage('Code Analysis') {
           echo "Running Code Analysis"
